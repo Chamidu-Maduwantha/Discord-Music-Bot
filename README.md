@@ -17,4 +17,4 @@ A powerful, feature-rich, and easy-to-use music bot for Discord, built using Nod
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/discord-music-bot.git
+   [git clone https://github.com/your-username/discord-music-bot.git](https://github.com/Chamidu-Maduwantha/Discord-Music-Bot.git)
