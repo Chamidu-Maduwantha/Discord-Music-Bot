@@ -51,7 +51,8 @@ module.exports = {
           .addFields(
             { name: 'Duration', value: formatDuration(res.tracks[0].duration), inline: true },
             { name: 'Requested by', value: `<@${message.author.id}>`, inline: true }
-          );
+          )
+          .setFooter({ text: `Cmusics™`, iconURL: client.user.displayAvatarURL() });
         if (!player.playing && !player.paused && !player.queue.size) player.play();
         return message.channel.send({ embeds: [embed] });
       case 'PLAYLIST_LOADED':
@@ -62,7 +63,8 @@ module.exports = {
           .addFields(
             { name: 'Duration', value: formatDuration(res.playlist.duration), inline: true },
             { name: 'Requested by', value: `<@${message.author.id}>`, inline: true }
-          );
+          )
+          .setFooter({ text: `Cmusics™`, iconURL: client.user.displayAvatarURL() });
         if (!player.playing && !player.paused && player.queue.totalSize === res.tracks.length) player.play();
         return message.channel.send({ embeds: [embed] });
       case 'SEARCH_RESULT':
@@ -75,7 +77,8 @@ module.exports = {
           .addFields(
             { name: 'Duration', value: formatDuration(track.duration), inline: true },
             { name: 'Requested by', value: `<@${message.author.id}>`, inline: true }
-          );
+          )
+          .setFooter({ text: `Cmusics™`, iconURL: client.user.displayAvatarURL() });
         if (!player.playing && !player.paused && !player.queue.size) player.play();
         return message.channel.send({ embeds: [embed] });
     }

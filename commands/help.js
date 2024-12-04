@@ -34,7 +34,7 @@ module.exports = {
         }
         
       )
-      .setFooter({ text: `Requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL() })
+      .setFooter({ text: `Cmusics™`, iconURL: client.user.displayAvatarURL() })
       .setTimestamp();
 
     return message.channel.send({ embeds: [embed] });

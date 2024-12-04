@@ -3,6 +3,7 @@ const { Manager } = require('erela.js');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
+const ms = require('ms');
 
 const client = new Client({
   intents: [
@@ -22,6 +23,7 @@ client.config = {
 client.commands = new Collection();
 client.aliases = new Collection(); 
 client.devMode = false;
+client.temporaryTesters = new Map();
 
 const commandFiles = fs.readdirSync(path.join(__dirname, 'commands')).filter(file => file.endsWith('.js'));
 
@@ -40,9 +42,9 @@ for (const file of commandFiles) {
 client.manager = new Manager({
   nodes: [
     {
-      host: 'lava-v3.ajieblogs.eu.org',
+      host: process.env.LAVALINK_HOST,
       port: 443,
-      password: 'https://dsc.gg/ajidevserver',
+      password: process.env.LAVALINK_PASSWORD,
       secure: true,
     },
   ],
@@ -65,7 +67,8 @@ client.manager = new Manager({
         .addFields(
           { name: 'Duration', value: formatDuration(track.duration), inline: true },
           { name: 'Requested by', value: `<@${track.requester.id}>`, inline: true }
-        );
+        )
+        .setFooter({ text: `Cmusics™`, iconURL: client.user.displayAvatarURL() });
       if (track.requestMessage) {
         try {
           await track.requestMessage.delete();
@@ -97,6 +100,30 @@ client.on('ready', () => {
   client.manager.init(client.user.id);
 
   updateBotStatus();
+
+
+  for (const [userId, expirationTime] of client.temporaryTesters.entries()) {
+    const remainingTime = expirationTime - Date.now();
+    if (remainingTime > 0) {
+      setTimeout(() => {
+        client.temporaryTesters.delete(userId);
+        const expiredEmbed = new EmbedBuilder()
+          .setColor('#FF6B6B')
+          .setTitle('🚫 CMusics™ Tester Status Expired')
+          .setDescription('Your temporary tester status for CMusics™ has expired.')
+          .addFields(
+            { name: 'Duration', value: 'Expired', inline: true }
+          )
+          .setFooter({ text: 'Thank you for your help in testing CMusics™!' })
+          .setTimestamp();
+        client.users.fetch(userId).then(user => {
+          user.send({ embeds: [expiredEmbed] }).catch(() => {});
+        });
+      }, remainingTime);
+    } else {
+      client.temporaryTesters.delete(userId);
+    }
+  }
 });
 
 
@@ -121,7 +148,8 @@ client.on('messageCreate', async message => {
 
   if (!command) return;
 
-  if (client.devMode && !client.config.devs.includes(message.author.id)) {
+  const isTemporaryTester = client.temporaryTesters.has(message.author.id);
+  if (client.devMode && !client.config.devs.includes(message.author.id) && !isTemporaryTester) {
     return message.reply('Bot is currently in maintenance mode. Please try again shortly.');
   }
 
