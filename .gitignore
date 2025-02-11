@@ -17,7 +17,6 @@ Thumbs.db
 
 # Ignore IDE-specific files
 .vscode/
-.idea/
 
 # Ignore npm package-lock file
 package-lock.json
@@ -26,3 +25,5 @@ package-lock.json
 player/skudder
 player/me
 player/old
+
+.idea/
