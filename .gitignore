@@ -26,4 +26,6 @@ commands/player/skudder.js
 commands/player/me.js
 commands/player/old.js
 
+websocket.js
+
 .idea/
