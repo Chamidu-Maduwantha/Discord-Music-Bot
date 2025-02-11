@@ -27,5 +27,6 @@ commands/player/me.js
 commands/player/old.js
 
 websocket.js
+commands/player/old.js
 
 .idea/
