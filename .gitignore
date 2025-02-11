@@ -22,8 +22,7 @@ Thumbs.db
 package-lock.json
 
 # Ignore player/skudder
-player/skudder
-player/me
-player/old
+commands/player/skudder.js
+commands/player/me.js
 
 .idea/
