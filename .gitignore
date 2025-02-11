@@ -24,5 +24,6 @@ package-lock.json
 # Ignore player/skudder
 commands/player/skudder.js
 commands/player/me.js
+commands/player/old.js
 
 .idea/
