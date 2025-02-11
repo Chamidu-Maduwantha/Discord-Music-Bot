@@ -2,29 +2,27 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'help',
-  aliases: ['h'],
+  aliases: ['h', 'commands'],
   description: 'Display all available commands.',
   execute(message, args, client) {
-    const { commands } = client;
-
     const embed = new EmbedBuilder()
-      .setColor('#4CAF50')  // A nice green color
-      .setTitle('🎵 CMusic Commands')
+      .setColor('#4CAF50')
+      .setTitle('🎵 CMusics™ Bot Commands')
       .setDescription('Here are all the available commands:')
       .addFields(
         {
           name: '🎧 Playback Controls',
-          value: '`play`, `pause`, `resume`, `skip`, `stop`, `seek`, `volume`',
+          value: '`play (p)`, `pause`, `resume`, `skip (s)`, `previous (prev, back)`, `stop`, `seek`, `volume`, `bassboost (bb)`',
           inline: false
         },
         {
           name: '📊 Queue Management',
-          value: '`queue`, `clear`, `shuffle`, `remove`',
+          value: '`queue (q)`, `clear`, `shuffle`, `remove`',
           inline: false
         },
         {
           name: '📌 Now Playing',
-          value: '`nowplaying`',
+          value: '`nowplaying (np, current)`',
           inline: false
         },
         {
@@ -32,9 +30,8 @@ module.exports = {
           value: '`ping`, `stats`, `about`',
           inline: false
         }
-        
       )
-      .setFooter({ text: `Cmusics™`, iconURL: client.user.displayAvatarURL() })
+      .setFooter({ text: `Requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL() })
       .setTimestamp();
 
     return message.channel.send({ embeds: [embed] });

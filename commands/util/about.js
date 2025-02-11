@@ -16,7 +16,7 @@ module.exports = {
         { name: '📚 Library', value: `Discord.js v${version}`, inline: true },
         { name: '🎵 Audio', value: 'Lavalink', inline: true },
         { name: '👑 Developer', value: 'Sp4rky', inline: true },
-        { name: '🌐 A Work By', value: 'Ignix Solutions', inline: true },
+        { name: '🌐 A Solution By', value: 'Evoaxy', inline: true },
         { name: '🔗 Invite', value: '[Add to Server](https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot)', inline: true },
        
         { name: '📖 Server' , value : client.guilds.cache.size.toString(), inline:true }

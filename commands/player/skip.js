@@ -6,6 +6,6 @@ module.exports = {
       const player = client.manager.get(message.guild.id);
       if (!player) return message.reply('No song is currently playing.');
       player.stop();
-      message.reply('Skipped the current song.');
+      
     },
   };

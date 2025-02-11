@@ -15,11 +15,22 @@ module.exports = {
       return message.reply('Please provide a user mention and duration (e.g., !addtester @user 1d)');
     }
 
-    const user = message.mentions.users.first();
-    if (!user) {
-      return message.reply('Please mention a valid user.');
+    let user;
+    if (message.mentions.users.size) {
+      user = message.mentions.users.first(); // Get user from mention
+    } else {
+      try {
+        user = await client.users.fetch(args[0]); // Fetch user by ID
+      } catch {
+        return message.reply('Please provide a valid user mention or ID.');
+      }
     }
 
+    if (!user) {
+      return message.reply('Could not find the user. Ensure the ID or mention is valid.');
+    }
+
+    
     const duration = ms(args[1]);
     if (!duration) {
       return message.reply('Please provide a valid duration (e.g., 1h, 1d, 7d)');

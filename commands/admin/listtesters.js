@@ -3,7 +3,7 @@ const ms = require('ms');
 
 module.exports = {
   name: 'listtesters',
-  aliases: ['testers'],
+  aliases: ['listtest'],
   description: 'List all current temporary testers (Developer only)',
   async execute(message, args, client) {
     // Check if the user has developer privileges

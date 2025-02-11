@@ -20,18 +20,24 @@ module.exports = {
 
     console.log('Shutting down...');
     
-    // Destroy all players
-    client.manager.players.forEach((player) => {
-      player.destroy();
-    });
+    try {
+      // Destroy all players
+      client.manager.players.forEach((player) => {
+        player.destroy();
+      });
 
-    // Disconnect from Lavalink nodes
-    client.manager.nodes.forEach((node) => {
-      node.disconnect();
-    });
+      // Disconnect the manager
+      await client.manager.destroyNode();
 
-    await client.destroy();
-    process.exit(0);
+      // Destroy the client
+      await client.destroy();
+
+      // Exit the process
+      process.exit(0);
+    } catch (error) {
+      console.error('Error during shutdown:', error);
+      process.exit(1);
+    }
   },
 };
 
